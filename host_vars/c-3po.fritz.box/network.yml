@@ -1,0 +1,58 @@
+---
+net_hostname: "c-3po.fritz.box"
+net_privateif: "bond0.1000"
+net_defaultif: "bond0.1002"
+net_interfaces:
+  ["enp0s3", "enp0s8", "bond0", "bond0.1000", "bond0.1001", "bond0.1002"]
+net_config:
+  "enp0s3":
+    {
+      hwaddr: "01:23:45:67:89:ab",
+      bootproto: "none",
+      onboot: "yes",
+      master: "bond0",
+      slave: "yes",
+    }
+  "enp0s8":
+    {
+      hwaddr: "01:23:45:67:89:ab",
+      bootproto: "none",
+      onboot: "yes",
+      master: "bond0",
+      slave: "yes",
+    }
+  "bond0":
+    {
+      bootproto: "none",
+      onboot: "yes",
+      bonding_opts: "mode=1 miimon=100",
+      userctl: "no",
+    }
+  "bond0.1000":
+    {
+      bootproto: "static",
+      onboot: "yes",
+      vlan: "yes",
+      X_network: "internal",
+      X_hostipaddr: "1",
+    }
+  "bond0.1001":
+    {
+      bootproto: "static",
+      onboot: "yes",
+      vlan: "yes",
+      X_network: "mpls",
+      X_hostipaddr: "11",
+    }
+  "bond0.1002":
+    {
+      bootproto: "static",
+      onboot: "yes",
+      vlan: "yes",
+      X_network: "public",
+      X_hostipaddr: "11",
+    }
+networks:
+  internal: { netrange: "10.1.2", prefix: "24", gateway: "254" }
+  mpls: { netrange: "10.1.8", prefix: "24", gateway: "254" }
+  public: { netrange: "10.1.9", prefix: "24", gateway: "254" }

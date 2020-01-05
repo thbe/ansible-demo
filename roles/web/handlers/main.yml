@@ -1,0 +1,6 @@
+---
+- name: Restart NGINX after configuration change
+  service:
+    name: nginx
+    state: restarted
+    enabled: yes

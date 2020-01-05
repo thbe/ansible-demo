@@ -1,0 +1,5 @@
+NETWORKING=yes
+HOSTNAME={{ net_hostname }}
+GATEWAY={{ networks[net_config[net_defaultif].X_network].netrange }}.{{ networks[net_config[net_defaultif].X_network].gateway }}
+DNS1=8.8.8.8
+DNS2=4.4.4.4

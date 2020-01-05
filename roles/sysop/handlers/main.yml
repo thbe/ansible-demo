@@ -1,0 +1,7 @@
+---
+# Enable cockpit management system
+- name: Restart cockpit after configuration change
+  service:
+    name: cockpit.socket
+    state: restarted
+    enabled: yes

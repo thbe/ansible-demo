@@ -1,0 +1,35 @@
+---
+- name: General network setup
+  template:
+    src: network.j2
+    dest: /etc/sysconfig/network
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Network interface setup
+  template:
+    src: ifcfg-interface.j2
+    dest: "/etc/sysconfig/network-scripts/ifcfg-{{ item }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - "{{ net_interfaces }}"
+
+- name: Network route setup
+  template:
+    owner: root
+    group: root
+    mode: 0644
+    src: route-interface.j2
+    dest: "/etc/sysconfig/network-scripts/route-{{ net_privateif }}"
+
+- name: Hosts file setup (including backup)
+  lineinfile:
+    dest: /etc/hosts
+    regexp: "^{{ ansible_default_ipv4.address }}"
+    line: "{{ ansible_default_ipv4.address }} {{ ansible_fqdn }} {{ ansible_hostname }}"
+    state: present
+    backup: yes
+  when: ansible_default_ipv4.address is defined

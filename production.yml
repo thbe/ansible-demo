@@ -1,0 +1,39 @@
+---
+# Production inventory
+all:
+  hosts:
+    bb-8.fritz.box:
+      ansible_ssh_host: 10.1.1.1
+      ansible_user: root
+    c-3po.fritz.box:
+      ansible_ssh_host: 10.1.1.2
+      ansible_user: root
+    r2-d2.fritz.box:
+      ansible_ssh_host: 10.1.2.1
+      ansible_user: root
+    r4-p17.fritz.box:
+      ansible_ssh_host: 10.1.2.1
+      ansible_user: root
+  children:
+    webservers:
+      hosts:
+        bb-8.fritz.box:
+        c-3po.fritz.box:
+    dbservers:
+      hosts:
+        r2-d2.fritz.box:
+        r4-p17.fritz.box:
+    hamburg:
+      hosts:
+        bb-8.fritz.box:
+        r2-d2.fritz.box:
+    berlin:
+      hosts:
+        c-3po.fritz.box:
+        r4-p17.fritz.box:
+    prod:
+      children:
+        hamburg:
+    test:
+      children:
+        berlin:

@@ -1,0 +1,58 @@
+---
+# Users that should be available on all target nodes
+local_user:
+  - ansible
+  - thbe
+
+# Packages that should be available on all target nodes
+generic_packages:
+  - atop
+  - dmidecode
+  - dstat
+  - genisoimage
+  - git
+  - htop
+  - iftop
+  - iotop
+  - ncdu
+  - nmap
+  - pv
+  - rsync
+  - screen
+  - strace
+  - syslinux
+  - tree
+  - unzip
+  - wget
+  - zsh
+
+yum_packages:
+  - atop
+  - dmidecode
+  - dstat
+  - genisoimage
+  - git
+  - glances
+  - htop
+  - iftop
+  - iotop
+  - ncdu
+  - ncftp
+  - nfs-utils
+  - nmap
+  - pv
+  - redhat-lsb-core
+  - rsync
+  - screen
+  - sslscan
+  - strace
+  - syslinux
+  - system-storage-manager
+  - tree
+  - unzip
+  - vim-enhanced
+  - wget
+  - xorg-x11-xauth
+  - zsh
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting

@@ -1,0 +1,66 @@
+---
+- name: Install common tools for RHEL and clones till major release 7 (generic)
+  yum:
+    name: "{{ generic_packages }}"
+    state: latest
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int <= 7
+
+- name: Install common tools for RHEL and clones till major release 7 (additional)
+  yum:
+    name:
+      - glances
+      - ncftp
+      - nfs-utils
+      - redhat-lsb-core
+      - sslscan
+      - system-storage-manager
+      - vim-enhanced
+      - xorg-x11-xauth
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+    state: latest
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int <= 7
+
+- name: Install common tools for RHEL and clones from major release 8 (generic)
+  dnf:
+    name: "{{ generic_packages }}"
+    state: latest
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
+- name: Install common tools for RHEL and clones from major release 8 (additional)
+  dnf:
+    name:
+      - nfs-utils
+      - redhat-lsb-core
+      - system-storage-manager
+      - vim-enhanced
+      - xorg-x11-xauth
+    state: latest
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
+- name: Install common tools for Debian and clones (generic)
+  apt:
+    name: "{{ generic_packages }}"
+    state: latest
+  when:
+    - ansible_facts['os_family'] == "Debian"
+
+- name: Install common tools for Debian and clones (additional)
+  apt:
+    name:
+      - glances
+      - ncftp
+      - sudo
+      - zsh-autosuggestions
+      - zsh-syntax-highlighting
+    state: latest
+  when:
+    - ansible_facts['os_family'] == "Debian"

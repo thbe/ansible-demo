@@ -1,0 +1,24 @@
+---
+- name: Download and install EPEL repo for CentOS/RHEL 6
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-6.noarch.rpm
+    state: present
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int == 6
+
+- name: Download and install EPEL repo for CentOS/RHEL 7
+  yum:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int == 7
+
+- name: Download and install EPEL repo for CentOS/RHEL 8
+  dnf:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm
+    state: present
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int == 8

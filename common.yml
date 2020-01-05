@@ -1,0 +1,9 @@
+---
+# Common playbook needs to executed first
+- name: Common configuration shared for all nodes
+  hosts: all
+  remote_user: root
+  gather_facts: true
+
+  roles:
+    - common

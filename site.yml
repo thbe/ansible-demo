@@ -1,0 +1,5 @@
+---
+# Master playbook
+
+- import_playbook: common.yml
+- import_playbook: web.yml

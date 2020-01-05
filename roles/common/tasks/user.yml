@@ -1,0 +1,152 @@
+---
+# Create all users defined in local_user (group_vars/all.yml)
+- name: Create personal user account
+  user:
+    name: "{{ item }}"
+    password: "!"
+    shell: /usr/bin/zsh
+    generate_ssh_key: yes
+    ssh_key_bits: 2048
+    ssh_key_file: .ssh/id_rsa
+  loop: "{{ local_user }}"
+
+# Add local public rsa key to authorized_keys for all users defined in local_user (group_vars/all.yml)
+# This one needs to be reworked for multiple named users)
+- name: Add remote authorized key to allow future password-less logins
+  authorized_key:
+    user: "{{ item }}"
+    key: "{{ lookup('file', '~/.ssh/id_rsa.pub') }}"
+  loop: "{{ local_user }}"
+
+# Add all users defined in local_user (group_vars/all.yml) to sudo administration group
+- name: Add personal user to sudoers
+  lineinfile:
+    path: /etc/sudoers
+    regexp: "{{ item }} ALL"
+    line: "{{ item }} ALL=(ALL) NOPASSWD: ALL"
+    state: present
+    validate: "/usr/sbin/visudo -cf %s"
+  loop: "{{ local_user }}"
+
+# Install oh-my-zsh for all users defined in local_user (group_vars/all.yml)
+- name: Download oh-my-zsh installer
+  get_url:
+    url: https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh
+    dest: /srv/oh-my-zsh-install.sh
+
+- name: Make oh-my-zsh-install.sh executable for all
+  file:
+    path: /srv/oh-my-zsh-install.sh
+    mode: 0755
+
+- name: Execute the zsh-installer.sh
+  command:
+    cmd: /srv/oh-my-zsh-install.sh
+    creates: /home/{{ item }}/.oh-my-zsh
+  become: yes
+  become_user: "{{ item }}"
+  loop: "{{ local_user }}"
+
+- name: Remove oh-my-zsh-install.sh
+  file:
+    path: /srv/oh-my-zsh-install.sh
+    state: absent
+
+# Install typewritten for all users defined in local_user (group_vars/all.yml)
+- name: Deploy typewritten theme to oh-my-zsh using git
+  git:
+    repo: https://github.com/thbe/typewritten.git
+    dest: /home/{{ item }}/.oh-my-zsh/custom/themes/typewritten
+  loop: "{{ local_user }}"
+
+# Deploy zsh configuration file to all users defined in local_user (group_vars/all.yml)
+- name: Deploy local zsh user configuration - .zshrc
+  copy:
+    src: user/.zshrc
+    dest: /home/{{ item }}/.zshrc
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+# Deploy plugin configuration files to all users defined in local_user (group_vars/all.yml)
+- name: Create .profile.d directory
+  file:
+    path: /home/{{ item }}/.profile.d
+    state: directory
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0750
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - alias.plugin.zsh
+  copy:
+    src: user/alias.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/alias.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - docker.plugin.zsh
+  copy:
+    src: user/docker.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/docker.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - functions.plugin.zsh
+  copy:
+    src: user/functions.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/functions.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - git.plugin.zsh
+  copy:
+    src: user/git.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/git.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - jekyll.plugin.zsh
+  copy:
+    src: user/jekyll.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/jekyll.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - nerd.plugin.zsh
+  copy:
+    src: user/nerd.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/nerd.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - puppet.plugin.zsh
+  copy:
+    src: user/puppet.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/puppet.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"
+
+- name: Deploy local zsh user configuration - ruby.plugin.zsh
+  copy:
+    src: user/ruby.plugin.zsh
+    dest: /home/{{ item }}/.profile.d/ruby.plugin.zsh
+    owner: "{{ item }}"
+    group: "{{ item }}"
+    mode: 0640
+  loop: "{{ local_user }}"

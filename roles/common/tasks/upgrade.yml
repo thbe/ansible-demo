@@ -1,0 +1,28 @@
+---
+- name: Upgrade RHEL and clones till major release 7
+  yum:
+    update_cache: yes
+    name: "*"
+    state: latest
+    exclude: kernel*
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int <= 7
+
+- name: Upgrade RHEL and clones from major release 8
+  dnf:
+    update_cache: yes
+    name: "*"
+    state: latest
+    exclude: kernel*
+  when:
+    - ansible_facts['os_family'] == "RedHat"
+    - ansible_facts['distribution_major_version']|int >= 8
+
+- name: Upgrade Debian and clones
+  apt:
+    update_cache: yes
+    cache_valid_time: 1200
+    upgrade: dist
+  when:
+    - ansible_facts['os_family'] == "Debian"

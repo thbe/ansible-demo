@@ -1,0 +1,9 @@
+---
+# Main playbook for common configuration
+#- include: networking.yml
+- include: motd.yml
+- include: localtime.yml
+- include: repositories.yml
+- include: upgrade.yml
+- include: tools.yml
+- include: user.yml

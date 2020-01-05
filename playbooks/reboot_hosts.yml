@@ -1,0 +1,10 @@
+---
+- hosts: all
+  become: yes
+  become_user: root
+  gather_facts: false
+
+  tasks:
+    # Reboot local server
+    - name: Reboot local server
+      command: /sbin/shutdown --no-wall -r +1 "Warning!!! This machine will be automatically rebooted by DevOps in 1 minute ..."
