@@ -1,6 +1,6 @@
-# Kickstart/Ansible proof of concept
+# Ansible demo
 
-This is a small proof of concept to perform an initial management of new installed CentOS nodes using Kickstart and Ansible.
+This is a small demonstration to perform an initial management of new installed Linux nodes using Ansible.
 
 #### Table of Contents
 * [Ad hoc execution](#Ad-hoc-execution)
