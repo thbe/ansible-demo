@@ -1,5 +1,5 @@
 ---
-# Production inventory
+# Staging inventory
 all:
   hosts:
     bb-8.fritz.box:
