@@ -1,10 +1,11 @@
 # Ansible demo
 
-This is a small demonstration to perform an initial management of new installed Linux nodes using Ansible.
+This is a small demonstration to perform an initial management of new installed Linux nodes using ``Ansible``.
 
 #### Table of Contents
 * [Ad hoc execution](#Ad-hoc-execution)
 * [Automated playbook execution](#Automated-playbook-execution)
+* [Directory layout](#Directory-layout-best-practice)
 
 ## Ad hoc execution
 ```shell
@@ -21,6 +22,7 @@ $ ansible -i staging all -m setup
 ## Automated playbook execution
 ```shell
 $ ansible-playbook -i staging site.yml
+$ ansible-playbook -i staging common.yml
 $ ansible-playbook -i staging playbooks/reboot_hosts.yml
 ```
 
@@ -57,7 +59,7 @@ roles/
       bar.txt             #  <-- files for use with the copy resource
       foo.sh              #  <-- script files for use with the script resource
     vars/
-      main.yml      #  <-- variables associated with this role
+      main.yml            #  <-- variables associated with this role
         defaults/         #
             main.yml      #  <-- default lower priority variables for this role
         meta/             #
