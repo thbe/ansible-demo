@@ -37,7 +37,7 @@
 - name: Make oh-my-zsh-install.sh executable for all
   file:
     path: /srv/oh-my-zsh-install.sh
-    mode: 0755
+    mode: "0755"
 
 - name: Execute the zsh-installer.sh
   command:
@@ -66,7 +66,7 @@
     dest: /home/{{ item }}/.zshrc
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 # Deploy plugin configuration files to all users defined in local_user (group_vars/all.yml)
@@ -76,7 +76,7 @@
     state: directory
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0750
+    mode: "0750"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - alias.plugin.zsh
@@ -85,7 +85,7 @@
     dest: /home/{{ item }}/.profile.d/alias.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - docker.plugin.zsh
@@ -94,7 +94,7 @@
     dest: /home/{{ item }}/.profile.d/docker.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - functions.plugin.zsh
@@ -103,7 +103,7 @@
     dest: /home/{{ item }}/.profile.d/functions.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - git.plugin.zsh
@@ -112,7 +112,7 @@
     dest: /home/{{ item }}/.profile.d/git.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - jekyll.plugin.zsh
@@ -121,7 +121,7 @@
     dest: /home/{{ item }}/.profile.d/jekyll.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - nerd.plugin.zsh
@@ -130,7 +130,7 @@
     dest: /home/{{ item }}/.profile.d/nerd.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - puppet.plugin.zsh
@@ -139,7 +139,7 @@
     dest: /home/{{ item }}/.profile.d/puppet.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
 
 - name: Deploy local zsh user configuration - ruby.plugin.zsh
@@ -148,5 +148,5 @@
     dest: /home/{{ item }}/.profile.d/ruby.plugin.zsh
     owner: "{{ item }}"
     group: "{{ item }}"
-    mode: 0640
+    mode: "0640"
   loop: "{{ local_user }}"
